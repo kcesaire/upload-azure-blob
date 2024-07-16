@@ -1,0 +1,18 @@
+# GitHub Actions repository workflow file, e.g .github/workflows/upload.yml
+
+# ...
+# previous steps to choose a runner type, authenticate to Azure, prepare files, etc
+# ...
+
+# Log into Azure using repository secret with service principal credentials
+# https://github.com/Azure/login#configure-deployment-credentials
+- uses: azure/login@v1
+  with:
+    creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+# Upload `.png`s to Azure Storage Blob
+- uses: github-developer/upload-azure-blob@v1
+  with:
+    account: mystorageaccount
+    destination: nameofstoragecontainer
+    source: **/*.md
